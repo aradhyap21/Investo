@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutual Funds Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .fund-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .fund-list {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .fund-item {
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr 1fr;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+
+        .fund-item:last-child {
+            border-bottom: none;
+        }
+
+        .fund-header {
+            font-weight: bold;
+            background-color: #f8f9fa;
+        }
+
+        .returns-positive {
+            color: #28a745;
+        }
+
+        .returns-negative {
+            color: #dc3545;
+        }
+
+        .invest-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .invest-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .filter-section {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-width: 150px;
+        }
+
+        .search-input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex-grow: 1;
+        }
+
+        @media (max-width: 768px) {
+            .fund-item {
+                grid-template-columns: 2fr 1fr 1fr;
+            }
+            
+            .fund-item .returns {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Mutual Funds Investment</h1>
+    </header>
+
+    <div class="container">
+        <div class="fund-categories">
+            <div class="category-card">
+                <h3>Equity Funds</h3>
+                <p>High risk, high returns potential</p>
+            </div>
+            <div class="category-card">
+                <h3>Debt Funds</h3>
+                <p>Lower risk, stable returns</p>
+            </div>
+            <div class="category-card">
+                <h3>Hybrid Funds</h3>
+                <p>Balanced risk and returns</p>
+            </div>
+            <div class="category-card">
+                <h3>Index Funds</h3>
+                <p>Market-linked returns</p>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <select class="filter-select" id="categoryFilter">
+                <option value="all">All Categories</option>
+                <option value="equity">Equity</option>
+                <option value="debt">Debt</option>
+                <option value="hybrid">Hybrid</option>
+                <option value="index">Index</option>
+            </select>
+            <select class="filter-select" id="riskFilter">
+                <option value="all">All Risk Levels</option>
+                <option value="high">High Risk</option>
+                <option value="moderate">Moderate Risk</option>
+                <option value="low">Low Risk</option>
+            </select>
+            <input type="text" class="search-input" placeholder="Search funds..." id="searchInput">
+        </div>
+
+        <div class="fund-list">
+            <div class="fund-item fund-header">
+                <div>Fund Name</div>
+                <div>NAV</div>
+                <div>1Y Returns</div>
+                <div>Action</div>
+            </div>
+            <div id="fundListContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Sample fund data
+        const funds = [
+            { name: 'Growth Equity Fund', category: 'equity', risk: 'high', nav: 45.67, returns: 15.8 },
+            { name: 'Blue Chip Fund', category: 'equity', risk: 'moderate', nav: 89.12, returns: 12.5 },
+            { name: 'Government Securities Fund', category: 'debt', risk: 'low', nav: 32.45, returns: 6.7 },
+            { name: 'Corporate Bond Fund', category: 'debt', risk: 'moderate', nav: 28.90, returns: 7.2 },
+            { name: 'Balanced Advantage Fund', category: 'hybrid', risk: 'moderate', nav: 42.30, returns: 9.5 },
+            { name: 'Nifty Index Fund', category: 'index', risk: 'moderate', nav: 156.78, returns: 11.2 }
+        ];
+
+        // Function to render fund list
+        function renderFunds(filteredFunds) {
+            const fundListContent = document.getElementById('fundListContent');
+            fundListContent.innerHTML = '';
+
+            filteredFunds.forEach(fund => {
+                const fundElement = document.createElement('div');
+                fundElement.className = 'fund-item';
+                fundElement.innerHTML = `
+                    <div>${fund.name}</div>
+                    <div>₹${fund.nav}</div>
+                    <div class="${fund.returns >= 0 ? 'returns-positive' : 'returns-negative'}">
+                        ${fund.returns}%
+                    </div>
+                    <div>
+                        <button class="invest-btn">Invest</button>
+                    </div>
+                `;
+                fundListContent.appendChild(fundElement);
+            });
+        }
+
+        // Initialize with all funds
+        renderFunds(funds);
+
+        // Filter functionality
+        function filterFunds() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const riskFilter = document.getElementById('riskFilter').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            const filteredFunds = funds.filter(fund => {
+                const matchesCategory = categoryFilter === 'all' || fund.category === categoryFilter;
+                const matchesRisk = riskFilter === 'all' || fund.risk === riskFilter;
+                const matchesSearch = fund.name.toLowerCase().includes(searchTerm);
+                return matchesCategory && matchesRisk && matchesSearch;
+            });
+
+            renderFunds(filteredFunds);
+        }
+
+        // Add event listeners
+        document.getElementById('categoryFilter').addEventListener('change', filterFunds);
+        document.getElementById('riskFilter').addEventListener('change', filterFunds);
+        document.getElementById('searchInput').addEventListener('input', filterFunds);
+
+        // Add click handlers for category cards
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const category = card.querySelector('h3').textContent.split(' ')[0].toLowerCase();
+                document.getElementById('categoryFilter').value = category;
+                filterFunds();
+            });
+        });
+
+        // Add click handlers for invest buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('invest-btn')) {
+                const fundName = e.target.closest('.fund-item').querySelector('div').textContent;
+                alert(`Starting investment process for ${fundName}`);
+            }
+        });
+    </script>
+</body>
+</html>
