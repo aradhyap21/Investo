@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REIT Investments | Your Gateway to Real Estate</title>
+    <link href="./output.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: #1a237e;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1200/600');
+            height: 80vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 4rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #1a237e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #283593;
+        }
+
+        .features {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .calculator {
+            background-color: #f5f5f5;
+            padding: 4rem 2rem;
+        }
+
+        .calculator-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        footer {
+            background-color: #1a237e;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <nav>
+            <a href="#" class="logo">REIT Investments</a>
+            <div>
+                <a href="#features">Features</a>
+                <a href="#calculator">Calculator</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Invest in Real Estate Without the Hassle</h1>
+            <p>Access institutional-quality real estate investments through REITs. Start building your passive income today.</p>
+            <a href="#calculator" class="cta-button">Calculate Your Returns</a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2>Why Invest in REITs?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Diversification</h3>
+                <p>Add real estate to your portfolio without the need to purchase physical properties. Spread your investment across multiple properties and sectors.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Regular Income</h3>
+                <p>REITs are required to distribute at least 90% of their taxable income to shareholders annually, providing steady dividend payments.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Liquidity</h3>
+                <p>Unlike physical real estate, REIT shares can be bought and sold easily on major exchanges, providing better liquidity for investors.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="calculator" id="calculator">
+        <div class="calculator-container">
+            <h2>Investment Calculator</h2>
+            <div class="input-group">
+                <label for="investment">Initial Investment ($)</label>
+                <input type="number" id="investment" min="0" step="100" value="10000">
+            </div>
+            <div class="input-group">
+                <label for="years">Investment Period (Years)</label>
+                <input type="number" id="years" min="1" max="30" value="5">
+            </div>
+            <div class="input-group">
+                <label for="return">Expected Annual Return (%)</label>
+                <input type="number" id="return" min="0" max="100" value="8">
+            </div>
+            <button class="cta-button" onclick="calculateReturns()">Calculate</button>
+            <div id="result" style="margin-top: 1rem;"></div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p>Contact us: info@reitinvestments.com</p>
+        <p>© 2025 REIT Investments. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function calculateReturns() {
+            const investment = parseFloat(document.getElementById('investment').value);
+            const years = parseFloat(document.getElementById('years').value);
+            const returnRate = parseFloat(document.getElementById('return').value) / 100;
+
+            if (isNaN(investment) || isNaN(years) || isNaN(returnRate)) {
+                document.getElementById('result').innerHTML = 'Please enter valid numbers';
+                return;
+            }
+
+            const futureValue = investment * Math.pow((1 + returnRate), years);
+            const totalReturn = futureValue - investment;
+
+            document.getElementById('result').innerHTML = `
+                <strong>Projected Results:</strong><br>
+                Future Value: $${futureValue.toFixed(2)}<br>
+                Total Return: $${totalReturn.toFixed(2)}<br>
+                Return Percentage: ${((totalReturn/investment) * 100).toFixed(2)}%
+            `;
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

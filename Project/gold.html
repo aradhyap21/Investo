@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sovereign Gold Bonds</title>
+    <link href="./output.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Loader Styles */
+        .terminal-loader {
+            border: 0.1em solid #333;
+            background-color: #1a1a1a;
+            color: #0f0;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1em;
+            padding: 1.5em 1em;
+            width: 12em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+            position: fixed; /* Changed to fixed */
+            top: 50%; /* Center the loader */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+            box-sizing: border-box;
+            z-index: 1000; /* Ensure it's on top */
+        }
+
+        .terminal-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1.5em;
+            background-color: #333;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            padding: 0 0.4em;
+            box-sizing: border-box;
+        }
+
+        .terminal-controls {
+            float: right;
+        }
+
+        .control {
+            display: inline-block;
+            width: 0.6em;
+            height: 0.6em;
+            margin-left: 0.4em;
+            border-radius: 50%;
+            background-color: #777;
+        }
+
+        .control.close {
+            background-color: #e33;
+        }
+
+        .control.minimize {
+            background-color: #ee0;
+        }
+
+        .control.maximize {
+            background-color: #0b0;
+        }
+
+        .terminal-title {
+            float: left;
+            line-height: 1.5em;
+            color: #eee;
+        }
+
+        .text {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 0.2em solid green; /* Cursor */
+            animation:
+                typeAndDelete 4s steps(11) infinite,
+                blinkCursor 0.5s step-end infinite alternate;
+            margin-top: 1.5em;
+        }
+
+        @keyframes blinkCursor {
+            50% {
+                border-right-color: transparent;
+            }
+        }
+
+        @keyframes typeAndDelete {
+            0%,
+            10% {
+                width: 0;
+            }
+            45%,
+            55% {
+                width: 6.2em;
+            } /* adjust width based on content */
+            90%,
+            100% {
+                width: 0;
+            }
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            display: none; /* Initially hide the main content */
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #b8860b 0%, #daa520 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Container Styles */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Gold Price Styles */
+        .gold-price {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .price-value {
+            font-size: 2.5rem;
+            color: #b8860b;
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .price-trend {
+            font-size: 1.2rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .price-up {
+            background-color: #e6ffe6;
+            color: #008000;
+        }
+
+        .price-down {
+            background-color: #ffe6e6;
+            color: #ff0000;
+        }
+
+        .last-updated {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Info Grid Styles */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .info-card h3 {
+            color: #b8860b;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #daa520;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Calculator Styles */
+        .calculator {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        /* Button Styles */
+        .btn {
+            background: #b8860b;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #daa520;
+        }
+
+        /* Result Styles */
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+            display: none;
+        }
+
+        /* Features Styles */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #b8860b;
+            margin-bottom: 1rem;
+        }
+
+        /* Timeline Styles */
+        .timeline {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .timeline h2 {
+            color: #b8860b;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-item {
+            padding: 1rem;
+            border-left: 2px solid #b8860b;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 50%;
+            width: 12px;
+            height: 12px;
+            background: #b8860b;
+            border-radius: 50%;
+        }
+
+        /* Media Query for Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.5rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .price-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Terminal Loader -->
+    <div class="terminal-loader">
+        <div class="terminal-header">
+            <div class="terminal-title">Status</div>
+            <div class="terminal-controls">
+                <div class="control close"></div>
+                <div class="control minimize"></div>
+                <div class="control maximize"></div>
+            </div>
+        </div>
+        <div class="text">Loading...</div>
+    </div>
+
+    <!-- Main Content (Initially Hidden) -->
+    <div class="main-content">
+        <header class="header">
+            <h1>Sovereign Gold Bonds</h1>
+            <p>A smart way to invest in gold with additional benefits</p>
+        </header>
+
+        <div class="container">
+            <div class="gold-price">
+                <h2>Current Gold Price (per gram)</h2>
+                <div class="price-value">
+                    <span id="currentPrice">₹5,778</span>
+                    <span id="priceTrend" class="price-trend"></span>
+                </div>
+                <p class="last-updated">Last updated: <span id="lastUpdated"></span></p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>About SGB</h3>
+                    <p>Sovereign Gold Bonds are government securities denominated in grams of gold. They offer an alternative to holding physical gold, with additional interest benefits.</p>
+                </div>
+                <div class="info-card">
+                    <h3>Benefits</h3>
+                    <p>• 2.5% annual interest on investment<br>
+                    • No risk of theft/storage<br>
+                    • Tax-free capital gains on maturity<br>
+                    • Tradable on stock exchanges</p>
+                </div>
+                <div class="info-card">
+                    <h3>Investment Limits</h3>
+                    <p>Minimum: 1 gram of gold<br>
+                    Maximum: 4 kg for individuals<br>
+                    Tenure: 8 years with exit option from 5th year</p>
+                </div>
+            </div>
+
+            <div class="calculator">
+                <h2>SGB Investment Calculator</h2>
+                <div class="input-group">
+                    <label for="goldAmount">Gold Amount (in grams)</label>
+                    <input type="number" id="goldAmount" min="1" placeholder="Enter gold quantity">
+                </div>
+                <div class="input-group">
+                    <label for="investmentPeriod">Investment Period (years)</label>
+                    <input type="number" id="investmentPeriod" min="5" max="8" placeholder="Enter period (5-8 years)">
+                </div>
+                <button class="btn" onclick="calculateReturns()">Calculate Returns</button>
+                <div class="result" id="result"></div>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Secure Investment</h3>
+                    <p>Government backed security with sovereign guarantee</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Regular Income</h3>
+                    <p>Semi-annual interest payments at 2.5% per annum</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Tax Benefits</h3>
+                    <p>Capital gains tax exemption on redemption</p>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <h2>Investment Timeline</h2>
+                <div class="timeline-item">
+                    <h4>Issue Opening</h4>
+                    <p>Bonds are issued in tranches throughout the year</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Interest Payment</h4>
+                    <p>Semi-annual interest credited to bank account</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Early Exit Option</h4>
+                    <p>Available from 5th year onwards on interest payment dates</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Maturity</h4>
+                    <p>After 8 years at prevailing market price of gold</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to hide the loader and show the main content
+        function loadPage() {
+            document.querySelector('.terminal-loader').style.display = 'none';
+            document.querySelector('.main-content').style.display = 'block';
+        }
+
+        // Simulate loading time (e.g., 2 seconds)
+        setTimeout(loadPage, 2000);
+
+        // Base price and variables for simulation
+        let basePrice = 5778;
+        let currentPrice = basePrice;
+        let lastPrice = basePrice;
+
+        // Format price with commas and rupee symbol
+        function formatPrice(price) {
+            return '₹' + price.toLocaleString('en-IN');
+        }
+
+        // Format date and time
+        function formatDateTime(date) {
+            return date.toLocaleString('en-IN', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            });
+        }
+
+        // Update price display
+        function updatePriceDisplay(newPrice, oldPrice) {
+            const priceElement = document.getElementById('currentPrice');
+            const trendElement = document.getElementById('priceTrend');
+            const lastUpdatedElement = document.getElementById('lastUpdated');
+
+            // Update price
+            priceElement.textContent = formatPrice(newPrice);
+
+            // Update trend indicator
+            const priceDiff = newPrice - oldPrice;
+            const percentChange = ((priceDiff / oldPrice) * 100).toFixed(2);
+
+            if (priceDiff > 0) {
+                trendElement.className = 'price-trend price-up';
+                trendElement.textContent = `+${percentChange}%`;
+            } else if (priceDiff < 0) {
+                trendElement.className = 'price-trend price-down';
+                trendElement.textContent = `${percentChange}%`;
+            } else {
+                trendElement.className = 'price-trend';
+                trendElement.textContent = '0%';
+            }
+
+            // Update timestamp
+            lastUpdatedElement.textContent = formatDateTime(new Date());
+        }
+
+        // Simulate price updates
+        function simulatePriceUpdate() {
+            lastPrice = currentPrice;
+
+            // Simulate market volatility (±0.5% max change)
+            const volatility = 0.005;
+            const change = (Math.random() * 2 - 1) * volatility;
+            currentPrice = Math.round(basePrice * (1 + change));
+
+            updatePriceDisplay(currentPrice, lastPrice);
+        }
+
+        // Initialize display
+        updatePriceDisplay(currentPrice, lastPrice);
+
+        // Update prices every 5 seconds
+        setInterval(simulatePriceUpdate, 5000);
+
+        // Calculate returns function
+        function calculateReturns() {
+            const goldAmount = parseFloat(document.getElementById('goldAmount').value);
+            const period = parseFloat(document.getElementById('investmentPeriod').value);
+
+            if (!goldAmount || !period || period < 5 || period > 8) {
+                alert('Please enter valid values. Period should be between 5-8 years.');
+                return;
+            }
+
+            const annualInterestRate = 0.025;
+
+            // Use current simulated price instead of fixed price
+            const initialInvestment = goldAmount * currentPrice;
+
+            // Assume 5% annual increase in gold price
+            const estimatedGoldPrice = currentPrice * Math.pow(1.05, period);
+
+            const totalInterest = initialInvestment * annualInterestRate * period;
+            const finalValue = (goldAmount * estimatedGoldPrice) + totalInterest;
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <h3>Investment Summary</h3>
+                <p>Initial Investment: ${formatPrice(Math.round(initialInvestment))}</p>
+                <p>Total Interest Earned: ${formatPrice(Math.round(totalInterest))}</p>
+                <p>Estimated Final Value: ${formatPrice(Math.round(finalValue))}</p>
+                <p>Total Returns: ${Math.round(((finalValue/initialInvestment - 1) * 100))}%</p>
+            `;
+            resultDiv.style.display = 'block';
+        }
+
+        // Input validation
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.value < 0) this.value = 0;
+            });
+        });
+    </script>
+</body>
+</html>

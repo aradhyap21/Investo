@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Portal</title>
+    <link href="./output.css" rel="stylesheet">
+    <link rel="stylesheet" href="App.css">
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-white font-bold text-xl">InvestBank</div>
+            <div class="hidden md:flex space-x-4">
+                <a href="#" class="text-white hover:text-blue-200">Home</a>
+                <div class="relative group">
+                    <button class="text-white hover:text-blue-200">
+                        <span class="flex items-center">
+                            <img src="/api/placeholder/32/32" alt="Profile" class="w-8 h-8 rounded-full"/>
+                            <span class="ml-2">John Doe</span>
+                        </span>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden group-hover:block">
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile Settings</a>
+                        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Security</a>
+                        <a href="#" class="block px-4 py-2 text-red-600 hover:bg-gray-100">Logout</a>
+                    </div>
+                </div>
+            </div>
+            <button class="md:hidden text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-4">
+        <!-- Investment Summary -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Investment Portfolio</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-bold">Total Investment</h3>
+                    <p class="text-2xl">₹15,45,000</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="font-bold">Current Value</h3>
+                    <p class="text-2xl">₹17,82,000</p>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h3 class="font-bold">Returns</h3>
+                    <p class="text-2xl text-green-600">+15.3%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Options Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Demat Account -->
+            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                <h3 class="text-xl font-bold mb-2">Demat Account</h3>
+                <p class="text-gray-600 mb-4">Trade in stocks, ETFs, and more</p>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">View Details</button>
+            </div>
+
+            <!-- FD/RD -->
+            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                <h3 class="text-xl font-bold mb-2">Fixed & Recurring Deposits</h3>
+                <p class="text-gray-600 mb-4">Secure returns with guaranteed interest rates</p>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Invest Now</button>
+            </div>
+
+            <!-- Sovereign Gold Bonds -->
+            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                <h3 class="text-xl font-bold mb-2">Sovereign Gold Bonds</h3>
+                <p class="text-gray-600 mb-4">Government backed gold investment</p>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Buy SGB</button>
+            </div>
+
+            <!-- REITs -->
+            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                <h3 class="text-xl font-bold mb-2">Real Estate Investment Trusts</h3>
+                <p class="text-gray-600 mb-4">Invest in real estate without buying property</p>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Explore REITs</button>
+            </div>
+
+            <!-- Mutual Funds -->
+            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                <h3 class="text-xl font-bold mb-2">Mutual Funds</h3>
+                <p class="text-gray-600 mb-4">Professional managed diversified portfolios</p>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Invest in MF</button>
+            </div>
+
+            <!-- NPS -->
+            <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+                <h3 class="text-xl font-bold mb-2">National Pension System</h3>
+                <p class="text-gray-600 mb-4">Long-term retirement investment</p>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Open NPS</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-50">
+        <div class="bg-white h-full w-64 p-4">
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-bold text-xl">Menu</span>
+                <button class="text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-col space-y-4">
+                <a href="#" class="text-gray-800 hover:text-blue-600">Home</a>
+                <a href="#" class="text-gray-800 hover:text-blue-600">Profile Settings</a>
+                <a href="#" class="text-gray-800 hover:text-blue-600">Security</a>
+                <a href="#" class="text-red-600 hover:text-red-800">Logout</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
