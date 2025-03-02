@@ -5,7 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mutual Funds Dashboard</title>
     <link href="./output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary-color: #10b981;
+            --text-color: #1f2937;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --transition-speed: 0.3s;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,21 +26,116 @@
 
         body {
             background-color: #f5f5f5;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
 
-        .header {
-            background-color: #2c3e50;
+        body.loaded {
+            opacity: 1;
+        }
+
+        /* Page Loader */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
             color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
+        .spinner {
+            width: 70px;
+            text-align: center;
+            margin: 0 auto 20px;
+        }
+
+        .spinner > div {
+            width: 18px;
+            height: 18px;
+            background-color: white;
+            border-radius: 100%;
+            display: inline-block;
+            animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+            margin: 0 3px;
+        }
+
+        .spinner .bounce1 {
+            animation-delay: -0.32s;
+        }
+
+        .spinner .bounce2 {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes sk-bouncedelay {
+            0%, 80%, 100% { 
+                transform: scale(0);
+            } 40% { 
+                transform: scale(1.0);
+            }
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+
+        .header h1 {
+            position: relative;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            font-size: 1.75rem;
+        }
+
+        .header h1::before {
+            content: '\f080';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        /* Container Styles */
         .container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
 
+        /* Fund Categories */
         .fund-categories {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -40,29 +146,147 @@
         .category-card {
             background: white;
             padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
             cursor: pointer;
+            border-left: 4px solid transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+        }
+
+        .category-card:nth-child(1) {
+            animation-delay: 0.1s;
+            border-left-color: #ef4444;
+        }
+
+        .category-card:nth-child(2) {
+            animation-delay: 0.2s;
+            border-left-color: #3b82f6;
+        }
+
+        .category-card:nth-child(3) {
+            animation-delay: 0.3s;
+            border-left-color: #10b981;
+        }
+
+        .category-card:nth-child(4) {
+            animation-delay: 0.4s;
+            border-left-color: #f59e0b;
         }
 
         .category-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
         }
 
+        .category-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .category-card:nth-child(1) h3::before {
+            content: '\f201';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 10px;
+            color: #ef4444;
+        }
+
+        .category-card:nth-child(2) h3::before {
+            content: '\f3fd';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 10px;
+            color: #3b82f6;
+        }
+
+        .category-card:nth-child(3) h3::before {
+            content: '\f126';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 10px;
+            color: #10b981;
+        }
+
+        .category-card:nth-child(4) h3::before {
+            content: '\f201';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 10px;
+            color: #f59e0b;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards 0.5s;
+        }
+
+        .filter-select {
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            min-width: 180px;
+            background-color: white;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .search-input {
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            flex-grow: 1;
+            background-color: white;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Fund List */
         .fund-list {
             background: white;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            opacity: 0;
+            animation: fadeIn 0.5s forwards 0.6s;
         }
 
         .fund-item {
             display: grid;
             grid-template-columns: 3fr 1fr 1fr 1fr;
             padding: 1rem;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #f3f4f6;
             align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .fund-item:hover {
+            background-color: #f9fafb;
         }
 
         .fund-item:last-child {
@@ -70,53 +294,97 @@
         }
 
         .fund-header {
-            font-weight: bold;
-            background-color: #f8f9fa;
+            font-weight: 600;
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
         }
 
         .returns-positive {
-            color: #28a745;
-        }
-
-        .returns-negative {
-            color: #dc3545;
-        }
-
-        .invest-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .invest-btn:hover {
-            background-color: #0056b3;
-        }
-
-        .filter-section {
-            margin-bottom: 2rem;
+            color: #10b981;
+            font-weight: 600;
             display: flex;
-            gap: 1rem;
             align-items: center;
         }
 
-        .filter-select {
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            min-width: 150px;
+        .returns-positive::before {
+            content: '\f062';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 5px;
+            font-size: 0.8rem;
         }
 
-        .search-input {
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            flex-grow: 1;
+        .returns-negative {
+            color: #ef4444;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
         }
 
+        .returns-negative::before {
+            content: '\f063';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 5px;
+            font-size: 0.8rem;
+        }
+
+        .invest-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .invest-btn::after {
+            content: '\f054';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-left: 5px;
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .invest-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .invest-btn:hover::after {
+            transform: translateX(3px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Styles */
         @media (max-width: 768px) {
             .fund-item {
                 grid-template-columns: 2fr 1fr 1fr;
@@ -125,10 +393,68 @@
             .fund-item .returns {
                 display: none;
             }
+
+            .filter-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-input, .filter-select {
+                width: 100%;
+            }
+        }
+
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+            font-style: italic;
+        }
+
+        /* Tooltip Styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
         }
     </style>
 </head>
 <body>
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+            <h2>Loading Mutual Funds</h2>
+            <p>Please wait while we fetch the latest data...</p>
+        </div>
+    </div>
+
     <header class="header">
         <h1>Mutual Funds Investment</h1>
     </header>
@@ -137,19 +463,19 @@
         <div class="fund-categories">
             <div class="category-card">
                 <h3>Equity Funds</h3>
-                <p>High risk, high returns potential</p>
+                <p>High risk, high returns potential. Invest primarily in company stocks for long-term growth.</p>
             </div>
             <div class="category-card">
                 <h3>Debt Funds</h3>
-                <p>Lower risk, stable returns</p>
+                <p>Lower risk, stable returns. Invest in fixed income securities like government bonds and corporate debt.</p>
             </div>
             <div class="category-card">
                 <h3>Hybrid Funds</h3>
-                <p>Balanced risk and returns</p>
+                <p>Balanced risk and returns. Diversified portfolio with a mix of equity and debt instruments.</p>
             </div>
             <div class="category-card">
                 <h3>Index Funds</h3>
-                <p>Market-linked returns</p>
+                <p>Market-linked returns. Passively managed funds that track a specific market index like Nifty or Sensex.</p>
             </div>
         </div>
 
@@ -182,26 +508,116 @@
     </div>
 
     <script>
-        // Sample fund data
+        // Page loader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('pageLoader').classList.add('loader-hidden');
+                document.body.classList.add('loaded');
+            }, 1500); // Show loader for 1.5 seconds
+        });
+
+        // Sample fund data with expanded details
         const funds = [
-            { name: 'Growth Equity Fund', category: 'equity', risk: 'high', nav: 45.67, returns: 15.8 },
-            { name: 'Blue Chip Fund', category: 'equity', risk: 'moderate', nav: 89.12, returns: 12.5 },
-            { name: 'Government Securities Fund', category: 'debt', risk: 'low', nav: 32.45, returns: 6.7 },
-            { name: 'Corporate Bond Fund', category: 'debt', risk: 'moderate', nav: 28.90, returns: 7.2 },
-            { name: 'Balanced Advantage Fund', category: 'hybrid', risk: 'moderate', nav: 42.30, returns: 9.5 },
-            { name: 'Nifty Index Fund', category: 'index', risk: 'moderate', nav: 156.78, returns: 11.2 }
+            { 
+                name: 'Growth Equity Fund', 
+                category: 'equity', 
+                risk: 'high', 
+                nav: 45.67, 
+                returns: 15.8,
+                description: 'Focuses on capital appreciation through investments in high-growth companies.'
+            },
+            { 
+                name: 'Blue Chip Fund', 
+                category: 'equity', 
+                risk: 'moderate', 
+                nav: 89.12, 
+                returns: 12.5,
+                description: 'Invests in well-established companies with stable earnings and dividends.'
+            },
+            { 
+                name: 'Government Securities Fund', 
+                category: 'debt', 
+                risk: 'low', 
+                nav: 32.45, 
+                returns: 6.7,
+                description: 'Invests primarily in government securities and treasury bills.'
+            },
+            { 
+                name: 'Corporate Bond Fund', 
+                category: 'debt', 
+                risk: 'moderate', 
+                nav: 28.90, 
+                returns: 7.2,
+                description: 'Focuses on corporate bonds and debentures for regular income.'
+            },
+            { 
+                name: 'Balanced Advantage Fund', 
+                category: 'hybrid', 
+                risk: 'moderate', 
+                nav: 42.30, 
+                returns: 9.5,
+                description: 'Dynamic asset allocation between equity and debt based on market conditions.'
+            },
+            { 
+                name: 'Nifty Index Fund', 
+                category: 'index', 
+                risk: 'moderate', 
+                nav: 156.78, 
+                returns: 11.2,
+                description: 'Passively tracks the Nifty 50 index composition and performance.'
+            },
+            { 
+                name: 'Small Cap Opportunities', 
+                category: 'equity', 
+                risk: 'high', 
+                nav: 38.45, 
+                returns: 18.9,
+                description: 'Invests in small-cap companies with high growth potential.'
+            },
+            { 
+                name: 'Banking Sector Fund', 
+                category: 'equity', 
+                risk: 'high', 
+                nav: 65.32, 
+                returns: 14.3,
+                description: 'Sector-specific fund focusing on banking and financial services.'
+            },
+            { 
+                name: 'Liquid Fund', 
+                category: 'debt', 
+                risk: 'low', 
+                nav: 22.15, 
+                returns: 4.8,
+                description: 'Invests in short-term money market instruments for high liquidity.'
+            }
         ];
 
-        // Function to render fund list
+        // Function to render fund list with animations
         function renderFunds(filteredFunds) {
             const fundListContent = document.getElementById('fundListContent');
             fundListContent.innerHTML = '';
 
-            filteredFunds.forEach(fund => {
+            if (filteredFunds.length === 0) {
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results';
+                noResults.innerHTML = 'No funds match your search criteria. Try adjusting your filters.';
+                fundListContent.appendChild(noResults);
+                return;
+            }
+
+            filteredFunds.forEach((fund, index) => {
                 const fundElement = document.createElement('div');
                 fundElement.className = 'fund-item';
+                fundElement.style.opacity = '0';
+                fundElement.style.transform = 'translateY(10px)';
+                fundElement.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                fundElement.style.transitionDelay = `${index * 0.05}s`;
+                
                 fundElement.innerHTML = `
-                    <div>${fund.name}</div>
+                    <div class="tooltip">
+                        ${fund.name}
+                        <span class="tooltip-text">${fund.description}</span>
+                    </div>
                     <div>₹${fund.nav}</div>
                     <div class="${fund.returns >= 0 ? 'returns-positive' : 'returns-negative'}">
                         ${fund.returns}%
@@ -211,13 +627,21 @@
                     </div>
                 `;
                 fundListContent.appendChild(fundElement);
+                
+                // Trigger animation after a small delay
+                setTimeout(() => {
+                    fundElement.style.opacity = '1';
+                    fundElement.style.transform = 'translateY(0)';
+                }, 10);
             });
         }
 
         // Initialize with all funds
-        renderFunds(funds);
+        setTimeout(() => {
+            renderFunds(funds);
+        }, 1800); // Delay initial rendering until after loader disappears
 
-        // Filter functionality
+        // Filter functionality with animation
         function filterFunds() {
             const categoryFilter = document.getElementById('categoryFilter').value;
             const riskFilter = document.getElementById('riskFilter').value;
@@ -230,7 +654,15 @@
                 return matchesCategory && matchesRisk && matchesSearch;
             });
 
-            renderFunds(filteredFunds);
+            // Fade out current list
+            const fundListContent = document.getElementById('fundListContent');
+            fundListContent.style.opacity = '0';
+            
+            // Render new list after fade out
+            setTimeout(() => {
+                renderFunds(filteredFunds);
+                fundListContent.style.opacity = '1';
+            }, 300);
         }
 
         // Add event listeners
@@ -238,9 +670,18 @@
         document.getElementById('riskFilter').addEventListener('change', filterFunds);
         document.getElementById('searchInput').addEventListener('input', filterFunds);
 
-        // Add click handlers for category cards
+        // Add click handlers for category cards with visual feedback
         document.querySelectorAll('.category-card').forEach(card => {
             card.addEventListener('click', () => {
+                // Add visual feedback
+                document.querySelectorAll('.category-card').forEach(c => {
+                    c.style.transform = '';
+                    c.style.boxShadow = '';
+                });
+                
+                card.style.transform = 'translateY(-5px)';
+                card.style.boxShadow = '0 10px 15px rgba(0,0,0,0.1)';
+                
                 const category = card.querySelector('h3').textContent.split(' ')[0].toLowerCase();
                 document.getElementById('categoryFilter').value = category;
                 filterFunds();
@@ -250,8 +691,62 @@
         // Add click handlers for invest buttons
         document.addEventListener('click', (e) => {
             if (e.target.classList.contains('invest-btn')) {
-                const fundName = e.target.closest('.fund-item').querySelector('div').textContent;
-                alert(`Starting investment process for ${fundName}`);
+                const fundName = e.target.closest('.fund-item').querySelector('div').textContent.trim();
+                
+                // Create a modal effect
+                const modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.backgroundColor = 'rgba(0,0,0,0.7)';
+                modal.style.display = 'flex';
+                modal.style.justifyContent = 'center';
+                modal.style.alignItems = 'center';
+                modal.style.zIndex = '1000';
+                modal.style.opacity = '0';
+                modal.style.transition = 'opacity 0.3s ease';
+                
+                const modalContent = document.createElement('div');
+                modalContent.style.backgroundColor = 'white';
+                modalContent.style.padding = '2rem';
+                modalContent.style.borderRadius = '10px';
+                modalContent.style.maxWidth = '500px';
+                modalContent.style.width = '90%';
+                modalContent.style.transform = 'scale(0.9)';
+                modalContent.style.transition = 'transform 0.3s ease';
+                
+                modalContent.innerHTML = `
+                    <h2 style="margin-bottom: 1rem; color: #3b82f6; font-size: 1.5rem;">Invest in ${fundName}</h2>
+                    <p style="margin-bottom: 1.5rem;">You are about to start the investment process for ${fundName}. Please confirm your investment details below.</p>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Investment Amount (₹)</label>
+                        <input type="number" placeholder="Enter amount" style="width: 100%; padding: 0.75rem; border: 1px solid #e5e7eb; border-radius: 6px;">
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem;">
+                        <button id="cancelBtn" style="padding: 0.75rem 1.5rem; border-radius: 6px; background-color: #f3f4f6; border: none; cursor: pointer;">Cancel</button>
+                        <button style="padding: 0.75rem 1.5rem; border-radius: 6px; background-color: #3b82f6; color: white; border: none; cursor: pointer;">Proceed</button>
+                    </div>
+                `;
+                
+                modal.appendChild(modalContent);
+                document.body.appendChild(modal);
+                
+                // Animate modal in
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                    modalContent.style.transform = 'scale(1)';
+                }, 10);
+                
+                // Close modal on cancel
+                document.getElementById('cancelBtn').addEventListener('click', () => {
+                    modal.style.opacity = '0';
+                    modalContent.style.transform = 'scale(0.9)';
+                    setTimeout(() => {
+                        document.body.removeChild(modal);
+                    }, 300);
+                });
             }
         });
     </script>
