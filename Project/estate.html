@@ -16,8 +16,40 @@
         body {
             line-height: 1.6;
             color: #333;
+            overflow-x: hidden;
         }
 
+        /* Page loader */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .page-loader .loader {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #1a237e;
+            border-top: 4px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Navbar */
         .navbar {
             background-color: #1a237e;
             padding: 1rem;
@@ -41,6 +73,7 @@
             padding: 0.5rem 1rem;
         }
 
+        /* Hero Section */
         .hero {
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1200/600');
             height: 80vh;
@@ -52,6 +85,13 @@
             text-align: center;
             color: white;
             margin-top: 4rem;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .hero-content {
@@ -62,6 +102,12 @@
         .hero h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
+            animation: slideUp 1s ease-in-out forwards;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .cta-button {
@@ -77,12 +123,16 @@
 
         .cta-button:hover {
             background-color: #283593;
+            transform: scale(1.05);
         }
 
+        /* Features Section */
         .features {
             padding: 4rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
         }
 
         .features-grid {
@@ -97,15 +147,25 @@
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s;
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
         }
 
         .feature-card:hover {
             transform: translateY(-5px);
         }
 
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Calculator Section */
         .calculator {
             background-color: #f5f5f5;
             padding: 4rem 2rem;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
         }
 
         .calculator-container {
@@ -133,6 +193,7 @@
             border-radius: 5px;
         }
 
+        /* Footer */
         footer {
             background-color: #1a237e;
             color: white;
@@ -153,6 +214,11 @@
     </style>
 </head>
 <body>
+    <!-- Page loader -->
+    <div class="page-loader" id="page-loader">
+        <div class="loader"></div>
+    </div>
+
     <div class="navbar">
         <nav>
             <a href="#" class="logo">REIT Investments</a>
@@ -216,6 +282,14 @@
     </footer>
 
     <script>
+        // Page loader hide after everything is loaded
+        window.addEventListener('load', function () {
+            document.getElementById('page-loader').style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById('page-loader').style.display = 'none';
+            }, 500);
+        });
+
         function calculateReturns() {
             const investment = parseFloat(document.getElementById('investment').value);
             const years = parseFloat(document.getElementById('years').value);
