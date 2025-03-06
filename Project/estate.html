@@ -4,214 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REIT Investments | Your Gateway to Real Estate</title>
-    <link href="./output.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        body {
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        /* Page loader */
-        .page-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
-
-        .page-loader .loader {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #1a237e;
-            border-top: 4px solid transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Navbar */
-        .navbar {
-            background-color: #1a237e;
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-        }
-
-        .navbar nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/api/placeholder/1200/600');
-            height: 80vh;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            margin-top: 4rem;
-            opacity: 0;
-            animation: fadeIn 2s forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 2rem;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            animation: slideUp 1s ease-in-out forwards;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background-color: #1a237e;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 1rem;
-            transition: background-color 0.3s;
-        }
-
-        .cta-button:hover {
-            background-color: #283593;
-            transform: scale(1.05);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            opacity: 0;
-            animation: fadeIn 2s forwards;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .feature-card {
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            opacity: 0;
-            animation: fadeInUp 1s forwards;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        @keyframes fadeInUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* Calculator Section */
-        .calculator {
-            background-color: #f5f5f5;
-            padding: 4rem 2rem;
-            opacity: 0;
-            animation: fadeIn 2s forwards;
-        }
-
-        .calculator-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .input-group {
-            margin-bottom: 1rem;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #1a237e;
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="estate.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+3o    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
     <!-- Page loader -->
@@ -222,12 +17,27 @@
     <div class="navbar">
         <nav>
             <a href="#" class="logo">REIT Investments</a>
-            <div>
+            <div class="nav-links">
                 <a href="#features">Features</a>
+                <a href="#portfolio">My Portfolio</a>
                 <a href="#calculator">Calculator</a>
+                <a href="#invest">Invest Now</a>
                 <a href="#contact">Contact</a>
             </div>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </nav>
+    </div>
+
+    <div class="mobile-menu">
+        <a href="#features">Features</a>
+        <a href="#portfolio">My Portfolio</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#invest">Invest Now</a>
+        <a href="#contact">Contact</a>
     </div>
 
     <section class="hero">
@@ -239,26 +49,93 @@
     </section>
 
     <section class="features" id="features">
-        <h2>Why Invest in REITs?</h2>
+        <div class="section-header" data-aos="fade-up">
+            <h2>Why Invest in REITs?</h2>
+            <div class="underline"></div>
+        </div>
         <div class="features-grid">
-            <div class="feature-card">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
                 <h3>Diversification</h3>
                 <p>Add real estate to your portfolio without the need to purchase physical properties. Spread your investment across multiple properties and sectors.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
                 <h3>Regular Income</h3>
                 <p>REITs are required to distribute at least 90% of their taxable income to shareholders annually, providing steady dividend payments.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
                 <h3>Liquidity</h3>
                 <p>Unlike physical real estate, REIT shares can be bought and sold easily on major exchanges, providing better liquidity for investors.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Inflation Hedge</h3>
+                <p>Real estate has historically served as a hedge against inflation, with property values and rental income often increasing during inflationary periods.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        <div class="section-header" data-aos="fade-up">
+            <h2>My Property Portfolio</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="portfolio-container" data-aos="fade-up" data-aos-delay="100">
+            <div class="portfolio-header">
+                <h3>Your REIT Holdings</h3>
+                <button id="refresh-portfolio" class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <div class="portfolio-table-container">
+                <table class="portfolio-table">
+                    <thead>
+                        <tr>
+                            <th>Property ID</th>
+                            <th>Property Name</th>
+                            <th>Market Cap ($M)</th>
+                            <th>Dividend Yield (%)</th>
+                            <th>Performance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="portfolio-data">
+                        <!-- Portfolio data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="portfolio-summary">
+                <div class="summary-card">
+                    <h4>Total Properties</h4>
+                    <p id="total-properties">0</p>
+                </div>
+                <div class="summary-card">
+                    <h4>Total Market Value</h4>
+                    <p id="total-market-value">$0</p>
+                </div>
+                <div class="summary-card">
+                    <h4>Avg. Dividend Yield</h4>
+                    <p id="avg-dividend">0%</p>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="calculator" id="calculator">
-        <div class="calculator-container">
-            <h2>Investment Calculator</h2>
+        <div class="calculator-container" data-aos="zoom-in">
+            <div class="section-header">
+                <h2>Investment Calculator</h2>
+                <div class="underline"></div>
+            </div>
             <div class="input-group">
                 <label for="investment">Initial Investment ($)</label>
                 <input type="number" id="investment" min="0" step="100" value="10000">
@@ -271,55 +148,91 @@
                 <label for="return">Expected Annual Return (%)</label>
                 <input type="number" id="return" min="0" max="100" value="8">
             </div>
+            <div class="input-group">
+                <label for="dividend">Expected Dividend Yield (%)</label>
+                <input type="number" id="dividend" min="0" max="20" value="4">
+            </div>
             <button class="cta-button" onclick="calculateReturns()">Calculate</button>
-            <div id="result" style="margin-top: 1rem;"></div>
+            <div id="result" class="result-container"></div>
+        </div>
+    </section>
+
+    <section class="invest-section" id="invest">
+        <div class="section-header" data-aos="fade-up">
+            <h2>How to Invest in REITs</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="invest-options">
+            <div class="invest-card" data-aos="flip-left" data-aos-delay="100">
+                <div class="invest-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h3>Through a Broker</h3>
+                <p>Purchase shares of publicly traded REITs through online brokers like Fidelity, Charles Schwab, or Robinhood.</p>
+                <a href="#" class="invest-link">Find a Broker</a>
+            </div>
+            <div class="invest-card" data-aos="flip-left" data-aos-delay="200">
+                <div class="invest-icon">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h3>Through Your Bank</h3>
+                <p>Many banks offer brokerage services that allow you to invest in REITs through your existing banking relationship.</p>
+                <a href="#" class="invest-link">Bank Options</a>
+            </div>
+            <div class="invest-card" data-aos="flip-left" data-aos-delay="300">
+                <div class="invest-icon">
+                    <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <h3>REIT Mutual Funds</h3>
+                <p>Invest in funds that hold a diversified portfolio of REITs, managed by professional fund managers.</p>
+                <a href="#" class="invest-link">Explore Funds</a>
+            </div>
+            <div class="invest-card" data-aos="flip-left" data-aos-delay="400">
+                <div class="invest-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>REIT ETFs</h3>
+                <p>Exchange-traded funds that track REIT indexes, offering broad exposure to the real estate market.</p>
+                <a href="#" class="invest-link">Discover ETFs</a>
+            </div>
         </div>
     </section>
 
     <footer id="contact">
-        <p>Contact us: info@reitinvestments.com</p>
-        <p>© 2025 REIT Investments. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>REIT Investments</h3>
+                <p>Your gateway to passive real estate income.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#portfolio">My Portfolio</a></li>
+                    <li><a href="#calculator">Calculator</a></li>
+                    <li><a href="#invest">Invest Now</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> info@reitinvestments.com</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Wall Street, New York, NY</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 REIT Investments. All rights reserved.</p>
+        </div>
     </footer>
 
-    <script>
-        // Page loader hide after everything is loaded
-        window.addEventListener('load', function () {
-            document.getElementById('page-loader').style.opacity = 0;
-            setTimeout(() => {
-                document.getElementById('page-loader').style.display = 'none';
-            }, 500);
-        });
-
-        function calculateReturns() {
-            const investment = parseFloat(document.getElementById('investment').value);
-            const years = parseFloat(document.getElementById('years').value);
-            const returnRate = parseFloat(document.getElementById('return').value) / 100;
-
-            if (isNaN(investment) || isNaN(years) || isNaN(returnRate)) {
-                document.getElementById('result').innerHTML = 'Please enter valid numbers';
-                return;
-            }
-
-            const futureValue = investment * Math.pow((1 + returnRate), years);
-            const totalReturn = futureValue - investment;
-
-            document.getElementById('result').innerHTML = `
-                <strong>Projected Results:</strong><br>
-                Future Value: $${futureValue.toFixed(2)}<br>
-                Total Return: $${totalReturn.toFixed(2)}<br>
-                Return Percentage: ${((totalReturn/investment) * 100).toFixed(2)}%
-            `;
-        }
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="estate.js"></script>
 </body>
 </html>
+
