@@ -4,418 +4,615 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demat Account | Your Gateway to Stock Market</title>
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --text-color: #1f2937;
-            --light-bg: #f3f4f6;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        body {
-            line-height: 1.6;
-            color: var(--text-color);
-        }
-
-        .navbar {
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-        }
-
-        .navbar nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar a {
-            color: var(--text-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            transition: color 0.3s;
-        }
-
-        .navbar a:hover {
-            color: var(--primary-color);
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/api/placeholder/1200/600');
-            height: 80vh;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            margin-top: 4rem;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 2rem;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 1rem;
-            transition: background-color 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .cta-button:hover {
-            background-color: var(--secondary-color);
-        }
-
-        .features {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            background: white;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .steps {
-            background-color: var(--light-bg);
-            padding: 4rem 2rem;
-        }
-
-        .steps-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .step-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .step-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .step-number {
-            background: var(--primary-color);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-        }
-
-        .faq {
-            padding: 4rem 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            margin-bottom: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .faq-question {
-            padding: 1rem;
-            background-color: white;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .faq-answer {
-            padding: 0 1rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            background-color: var(--light-bg);
-        }
-
-        .faq-answer.active {
-            padding: 1rem;
-            max-height: 500px;
-        }
-
-        .calculator {
-            background-color: var(--light-bg);
-            padding: 4rem 2rem;
-        }
-
-        .calculator-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .input-group {
-            margin-bottom: 1rem;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        footer {
-            background-color: var(--text-color);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-     <link href="./output.css" rel="stylesheet">
+    <link rel="stylesheet" href="demat.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
+    <!-- Page loader -->
+    <div class="page-loader" id="page-loader">
+        <div class="loader"></div>
+    </div>
+
     <div class="navbar">
         <nav>
-            <a href="#" class="logo">Demat Account</a>
-            <div>
+            <a href="#" class="logo">
+                <i class="fas fa-chart-line"></i> DematPro
+            </a>
+            <div class="nav-links">
                 <a href="#features">Benefits</a>
-                <a href="#steps">How to Open</a>
+                <a href="#portfolio">My Portfolio</a>
+                <a href="#transactions">Transactions</a>
                 <a href="#calculator">Calculator</a>
+                <a href="#steps">Open Account</a>
                 <a href="#faq">FAQ</a>
+            </div>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </nav>
     </div>
 
+    <div class="mobile-menu">
+        <a href="#features">Benefits</a>
+        <a href="#portfolio">My Portfolio</a>
+        <a href="#transactions">Transactions</a>
+        <a href="#calculator">Calculator</a>
+        <a href="#steps">Open Account</a>
+        <a href="#faq">FAQ</a>
+    </div>
+
     <section class="hero">
         <div class="hero-content">
-            <h1>Start Your Investment Journey Today</h1>
-            <p>Open a Demat Account and get access to the world of stocks, mutual funds, and more.</p>
-            <a href="#steps" class="cta-button">Open Demat Account</a>
+            <h1>Manage Your Investments Seamlessly</h1>
+            <p>Open a Demat Account and get access to stocks, bonds, mutual funds, and more with real-time tracking and insights.</p>
+            <div class="hero-buttons">
+                <a href="#portfolio" class="cta-button primary">View Portfolio</a>
+                <a href="#steps" class="cta-button secondary">Open Demat Account</a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number">5M+</span>
+                <span class="stat-label">Active Users</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">₹10T+</span>
+                <span class="stat-label">Assets Managed</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">4.8/5</span>
+                <span class="stat-label">User Rating</span>
+            </div>
         </div>
     </section>
 
     <section class="features" id="features">
-        <h2 class="section-title">Benefits of a Demat Account</h2>
+        <div class="section-header" data-aos="fade-up">
+            <h2>Benefits of a Demat Account</h2>
+            <div class="underline"></div>
+        </div>
         <div class="features-grid">
-            <div class="feature-card">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">
+                    <i class="fas fa-laptop"></i>
+                </div>
                 <h3>Convenient Trading</h3>
                 <p>Trade stocks, bonds, and other securities electronically from anywhere, anytime. No more physical certificates needed.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
                 <h3>Safe & Secure</h3>
                 <p>Your securities are held electronically, eliminating risks of loss, theft, or damage associated with physical certificates.</p>
             </div>
-            <div class="feature-card">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
                 <h3>Quick Transfers</h3>
                 <p>Transfer securities instantly between accounts. Sell stocks and receive funds directly in your linked bank account.</p>
+            </div>
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h3>Portfolio Diversification</h3>
+                <p>Easily diversify your investments across different asset classes and sectors to optimize returns and manage risk.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        <div class="section-header" data-aos="fade-up">
+            <h2>My Portfolio</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="portfolio-container" data-aos="fade-up" data-aos-delay="100">
+            <div class="portfolio-header">
+                <h3>Your Stock Holdings</h3>
+                <div class="portfolio-actions">
+                    <button id="refresh-portfolio" class="refresh-btn">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                    <div class="view-toggle">
+                        <button class="active" data-view="table"><i class="fas fa-table"></i></button>
+                        <button data-view="cards"><i class="fas fa-th-large"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-overview">
+                <div class="overview-card total-value">
+                    <h4>Total Value</h4>
+                    <p class="value">₹<span id="total-value">1,245,780</span></p>
+                    <p class="change positive"><i class="fas fa-arrow-up"></i> 2.4% today</p>
+                </div>
+                <div class="overview-card invested">
+                    <h4>Invested Amount</h4>
+                    <p class="value">₹<span id="invested-amount">1,150,000</span></p>
+                </div>
+                <div class="overview-card profit-loss">
+                    <h4>Profit/Loss</h4>
+                    <p class="value positive">₹<span id="profit-loss">95,780</span></p>
+                    <p class="change positive"><i class="fas fa-arrow-up"></i> 8.3% overall</p>
+                </div>
+            </div>
+            <div class="portfolio-view table-view active">
+                <div class="portfolio-table-container">
+                    <table class="portfolio-table">
+                        <thead>
+                            <tr>
+                                <th>Stock</th>
+                                <th>Quantity</th>
+                                <th>Avg. Price (₹)</th>
+                                <th>Current Price (₹)</th>
+                                <th>Value (₹)</th>
+                                <th>P&L (%)</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="portfolio-data">
+                            <!-- Portfolio data will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="portfolio-view card-view">
+                <div class="stock-cards" id="stock-cards">
+                    <!-- Stock cards will be loaded here -->
+                </div>
+            </div>
+            <div class="portfolio-summary">
+                <div class="summary-card">
+                    <h4>Total Stocks</h4>
+                    <p id="total-stocks">0</p>
+                </div>
+                <div class="summary-card">
+                    <h4>Sectors</h4>
+                    <p id="total-sectors">0</p>
+                </div>
+                <div class="summary-card">
+                    <h4>Best Performer</h4>
+                    <p id="best-performer">-</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="transactions" id="transactions">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Transaction History</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="transactions-container" data-aos="fade-up" data-aos-delay="100">
+            <div class="transactions-filters">
+                <div class="filter-group">
+                    <label for="transaction-type">Type:</label>
+                    <select id="transaction-type">
+                        <option value="all">All Transactions</option>
+                        <option value="buy">Buy Orders</option>
+                        <option value="sell">Sell Orders</option>
+                        <option value="dividend">Dividends</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="transaction-period">Period:</label>
+                    <select id="transaction-period">
+                        <option value="1m">Last Month</option>
+                        <option value="3m">Last 3 Months</option>
+                        <option value="6m">Last 6 Months</option>
+                        <option value="1y" selected>Last Year</option>
+                        <option value="all">All Time</option>
+                    </select>
+                </div>
+                <button id="export-transactions" class="export-btn">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+            <div class="transactions-table-container">
+                <table class="transactions-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Stock</th>
+                            <th>Quantity</th>
+                            <th>Price (₹)</th>
+                            <th>Total (₹)</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactions-data">
+                        <!-- Transactions data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination">
+                <button class="pagination-btn" disabled><i class="fas fa-chevron-left"></i></button>
+                <span class="pagination-info">Page 1 of 5</span>
+                <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="calculator" id="calculator">
+        <div class="calculator-container" data-aos="zoom-in">
+            <div class="section-header">
+                <h2>Investment Calculator</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="calculator-tabs">
+                <button class="tab-btn active" data-tab="brokerage">Brokerage</button>
+                <button class="tab-btn" data-tab="returns">Returns</button>
+                <button class="tab-btn" data-tab="tax">Tax</button>
+            </div>
+            <div class="calculator-content">
+                <div class="tab-content active" id="brokerage-tab">
+                    <div class="input-group">
+                        <label for="trade-value">Trade Value (₹)</label>
+                        <input type="number" id="trade-value" min="0" step="100" value="10000">
+                    </div>
+                    <div class="input-group">
+                        <label for="brokerage">Brokerage Rate (%)</label>
+                        <input type="number" id="brokerage" min="0" max="100" step="0.01" value="0.05">
+                    </div>
+                    <div class="input-group">
+                        <label for="trade-type">Trade Type</label>
+                        <select id="trade-type">
+                            <option value="equity">Equity (Delivery)</option>
+                            <option value="intraday">Equity (Intraday)</option>
+                            <option value="futures">Futures</option>
+                            <option value="options">Options</option>
+                        </select>
+                    </div>
+                    <button class="cta-button primary" onclick="calculateBrokerage()">Calculate</button>
+                    <div id="brokerage-result" class="result-container"></div>
+                </div>
+                <div class="tab-content" id="returns-tab">
+                    <div class="input-group">
+                        <label for="investment-amount">Investment Amount (₹)</label>
+                        <input type="number" id="investment-amount" min="0" step="1000" value="100000">
+                    </div>
+                    <div class="input-group">
+                        <label for="investment-period">Investment Period (Years)</label>
+                        <input type="number" id="investment-period" min="1" max="50" value="5">
+                    </div>
+                    <div class="input-group">
+                        <label for="expected-return">Expected Annual Return (%)</label>
+                        <input type="number" id="expected-return" min="0" max="100" step="0.1" value="12">
+                    </div>
+                    <div class="input-group">
+                        <label for="investment-frequency">Investment Frequency</label>
+                        <select id="investment-frequency">
+                            <option value="lumpsum">Lump Sum</option>
+                            <option value="monthly">Monthly SIP</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                    </div>
+                    <button class="cta-button primary" onclick="calculateReturns()">Calculate</button>
+                    <div id="returns-result" class="result-container"></div>
+                </div>
+                <div class="tab-content" id="tax-tab">
+                    <div class="input-group">
+                        <label for="purchase-price">Purchase Price (₹)</label>
+                        <input type="number" id="purchase-price" min="0" step="100" value="1000">
+                    </div>
+                    <div class="input-group">
+                        <label for="sale-price">Sale Price (₹)</label>
+                        <input type="number" id="sale-price" min="0" step="100" value="1500">
+                    </div>
+                    <div class="input-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" min="1" step="1" value="100">
+                    </div>
+                    <div class="input-group">
+                        <label for="holding-period">Holding Period</label>
+                        <select id="holding-period">
+                            <option value="short">Short Term (< 1 year)</option>
+                            <option value="long">Long Term (> 1 year)</option>
+                        </select>
+                    </div>
+                    <button class="cta-button primary" onclick="calculateTax()">Calculate</button>
+                    <div id="tax-result" class="result-container"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="market-insights" data-aos="fade-up">
+        <div class="section-header">
+            <h2>Market Insights</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="market-container">
+            <div class="market-indices">
+                <div class="index-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="index-name">NIFTY 50</div>
+                    <div class="index-value">22,456.80</div>
+                    <div class="index-change positive">+1.2% <i class="fas fa-arrow-up"></i></div>
+                </div>
+                <div class="index-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="index-name">SENSEX</div>
+                    <div class="index-value">73,890.45</div>
+                    <div class="index-change positive">+1.1% <i class="fas fa-arrow-up"></i></div>
+                </div>
+                <div class="index-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="index-name">NIFTY BANK</div>
+                    <div class="index-value">48,123.60</div>
+                    <div class="index-change negative">-0.3% <i class="fas fa-arrow-down"></i></div>
+                </div>
+                <div class="index-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="index-name">NIFTY IT</div>
+                    <div class="index-value">36,789.20</div>
+                    <div class="index-change positive">+2.1% <i class="fas fa-arrow-up"></i></div>
+                </div>
+            </div>
+            <div class="market-news" data-aos="fade-up" data-aos-delay="500">
+                <h3>Latest Market News</h3>
+                <div class="news-list">
+                    <div class="news-item">
+                        <span class="news-time">10:30 AM</span>
+                        <p>RBI keeps repo rate unchanged at 6.5% for the seventh consecutive time</p>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-time">09:45 AM</span>
+                        <p>IT stocks rally as major companies announce strong quarterly results</p>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-time">09:15 AM</span>
+                        <p>Markets open higher following positive global cues</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="steps" id="steps">
         <div class="steps-container">
-            <h2 class="section-title">How to Open a Demat Account</h2>
+            <div class="section-header" data-aos="fade-up">
+                <h2>How to Open a Demat Account</h2>
+                <div class="underline"></div>
+            </div>
             <div class="step-grid">
-                <div class="step-card">
+                <div class="step-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
                     <h3>Choose a Broker</h3>
-                    <p>Select a registered stockbroker or depository participant.</p>
+                    <p>Select a registered stockbroker or depository participant that suits your needs.</p>
                 </div>
-                <div class="step-card">
+                <div class="step-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
                     <h3>Fill KYC Form</h3>
-                    <p>Complete KYC with identity and address proof documents.</p>
+                    <p>Complete KYC with identity and address proof documents (PAN, Aadhaar, etc.).</p>
                 </div>
-                <div class="step-card">
+                <div class="step-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
                     <h3>Sign Agreement</h3>
-                    <p>Review and sign the agreement with your chosen broker.</p>
+                    <p>Review and sign the agreement with your chosen broker and pay applicable fees.</p>
                 </div>
-                <div class="step-card">
+                <div class="step-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="step-number">4</div>
+                    <div class="step-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
                     <h3>Start Trading</h3>
-                    <p>Receive your Demat account number and begin investing.</p>
+                    <p>Receive your Demat account number, link your bank account, and begin investing.</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="calculator" id="calculator">
-        <div class="calculator-container">
-            <h2>Brokerage Calculator</h2>
-            <div class="input-group">
-                <label for="trade-value">Trade Value (₹)</label>
-                <input type="number" id="trade-value" min="0" step="100" value="10000">
+            <div class="open-account-cta" data-aos="fade-up" data-aos-delay="500">
+                <h3>Ready to start your investment journey?</h3>
+                <button class="cta-button primary open-account-btn">Open Demat Account Now</button>
             </div>
-            <div class="input-group">
-                <label for="brokerage">Brokerage Rate (%)</label>
-                <input type="number" id="brokerage" min="0" max="100" step="0.01" value="0.05">
-            </div>
-            <button class="cta-button" onclick="calculateBrokerage()">Calculate</button>
-            <div id="result" style="margin-top: 1rem;"></div>
         </div>
     </section>
 
     <section class="faq" id="faq">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-                What is a Demat Account?
-                <span>+</span>
-            </div>
-            <div class="faq-answer">
-                A Demat (Dematerialized) Account is an account that holds your securities (shares, bonds, mutual funds) in electronic form, similar to how a bank account holds your money.
-            </div>
+        <div class="section-header" data-aos="fade-up">
+            <h2>Frequently Asked Questions</h2>
+            <div class="underline"></div>
         </div>
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-                What documents are needed?
-                <span>+</span>
+        <div class="faq-container" data-aos="fade-up" data-aos-delay="100">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What is a Demat Account?
+                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    <p>A Demat (Dematerialized) Account is an account that holds your securities (shares, bonds, mutual funds) in electronic form, similar to how a bank account holds your money. It eliminates the need for physical certificates and makes trading and managing investments much easier and safer.</p>
+                </div>
             </div>
-            <div class="faq-answer">
-                You need PAN Card, Address Proof (Aadhaar/Passport/Driving License), Bank Account Details, and Passport-size photographs to open a Demat account.
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What documents are needed to open a Demat account?
+                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    <p>You need the following documents to open a Demat account:</p>
+                    <ul>
+                        <li>PAN Card (mandatory)</li>
+                        <li>Address Proof (Aadhaar/Passport/Driving License)</li>
+                        <li>Identity Proof (if different from address proof)</li>
+                        <li>Bank Account Details with canceled cheque</li>
+                        <li>Passport-size photographs</li>
+                        <li>Income proof (in some cases)</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-                What are the charges involved?
-                <span>+</span>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    What are the charges involved in maintaining a Demat account?
+                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Common charges associated with a Demat account include:</p>
+                    <ul>
+                        <li>Account Opening Fees (one-time)</li>
+                        <li>Annual Maintenance Charges (AMC)</li>
+                        <li>Transaction Fees (when buying or selling securities)</li>
+                        <li>Brokerage Charges (varies by broker)</li>
+                        <li>Dematerialization Charges (for converting physical shares)</li>
+                        <li>Rematerialization Charges (for converting electronic shares to physical)</li>
+                    </ul>
+                    <p>These charges vary by broker and service provider. Some brokers offer zero account opening fees or waive AMC under certain conditions.</p>
+                </div>
             </div>
-            <div class="faq-answer">
-                Common charges include account opening fees, annual maintenance charges (AMC), transaction fees, and brokerage charges. These vary by broker and service provider.
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    Can I have multiple Demat accounts?
+                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, you can have multiple Demat accounts with different depository participants or brokers. There is no restriction on the number of Demat accounts you can open. However, you need to maintain each account separately and pay applicable charges for each account.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    How do I transfer shares between Demat accounts?
+                    <span class="faq-icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    <p>To transfer shares between Demat accounts, you need to submit a Delivery Instruction Slip (DIS) to your depository participant. The DIS should contain details like the recipient's Demat account number, DP ID, and the number of shares to be transferred. Alternatively, many brokers now offer online transfer facilities through their platforms.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>Contact us: support@demataccount.com</p>
-        <p>© 2025 Demat Services. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>DematPro</h3>
+                <p>Your gateway to seamless stock market investments and portfolio management.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#features">Benefits</a></li>
+                    <li><a href="#portfolio">My Portfolio</a></li>
+                    <li><a href="#transactions">Transactions</a></li>
+                    <li><a href="#calculator">Calculator</a></li>
+                    <li><a href="#steps">Open Account</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> support@dematpro.com</p>
+                <p><i class="fas fa-phone"></i> +91 1800-123-4567</p>
+                <p><i class="fas fa-map-marker-alt"></i> Financial District, Mumbai, India</p>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for market updates and investment tips.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Your Email">
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 DematPro. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Disclaimer</a>
+            </div>
+        </div>
     </footer>
 
-    <script>
-        function calculateBrokerage() {
-            const tradeValue = parseFloat(document.getElementById('trade-value').value);
-            const brokerageRate = parseFloat(document.getElementById('brokerage').value);
+    <!-- Account Opening Modal -->
+    <div class="modal-overlay" id="account-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Open Your Demat Account</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="account-form">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="full-name">Full Name</label>
+                            <input type="text" id="full-name" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="mobile">Mobile Number</label>
+                            <input type="tel" id="mobile" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="pan">PAN Number</label>
+                            <input type="text" id="pan" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="account-type">Account Type</label>
+                        <select id="account-type" required>
+                            <option value="">Select Account Type</option>
+                            <option value="individual">Individual</option>
+                            <option value="joint">Joint</option>
+                            <option value="corporate">Corporate</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="broker">Preferred Broker</label>
+                        <select id="broker" required>
+                            <option value="">Select Broker</option>
+                            <option value="zerodha">Zerodha</option>
+                            <option value="upstox">Upstox</option>
+                            <option value="groww">Groww</option>
+                            <option value="icici">ICICI Direct</option>
+                            <option value="hdfc">HDFC Securities</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></label>
+                    </div>
+                    <button type="submit" class="cta-button primary">Submit Application</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-            if (isNaN(tradeValue) || isNaN(brokerageRate)) {
-                document.getElementById('result').innerHTML = 'Please enter valid numbers';
-                return;
-            }
+    <!-- Stock Details Modal -->
+    <div class="modal-overlay" id="stock-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="stock-modal-title">Stock Details</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="stock-modal-content">
+                <!-- Stock details will be loaded here -->
+            </div>
+        </div>
+    </div>
 
-            const brokerage = tradeValue * (brokerageRate / 100);
-            const stt = tradeValue * 0.001; // Securities Transaction Tax
-            const exchangeCharges = tradeValue * 0.00035;
-            const gst = (brokerage + exchangeCharges) * 0.18;
-            const totalCharges = brokerage + stt + exchangeCharges + gst;
-
-            document.getElementById('result').innerHTML = `
-                <strong>Transaction Details:</strong><br>
-                Brokerage: ₹${brokerage.toFixed(2)}<br>
-                STT: ₹${stt.toFixed(2)}<br>
-                Exchange Charges: ₹${exchangeCharges.toFixed(2)}<br>
-                GST: ₹${gst.toFixed(2)}<br>
-                <strong>Total Charges: ₹${totalCharges.toFixed(2)}</strong>
-            `;
-        }
-
-        function toggleFAQ(element) {
-            const answer = element.nextElementSibling;
-            const isActive = answer.classList.contains('active');
-            
-            // Close all FAQs
-            document.querySelectorAll('.faq-answer').forEach(item => {
-                item.classList.remove('active');
-            });
-            document.querySelectorAll('.faq-question span').forEach(item => {
-                item.textContent = '+';
-            });
-
-            // Open clicked FAQ if it wasn't active
-            if (!isActive) {
-                answer.classList.add('active');
-                element.querySelector('span').textContent = '-';
-            }
-        }
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="demat.js"></script>
 </body>
 </html>
+
