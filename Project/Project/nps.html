@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Pension Scheme</title>
+    <link rel="stylesheet" href="nps.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>National Pension Scheme (NPS)</h1>
+            <p>Secure your retirement with India's premier pension scheme</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#about">About NPS</a></li>
+                <li><a href="#calculator">Calculator</a></li>
+                <li><a href="#tiers">Account Types</a></li>
+                <li><a href="#withdrawals">Withdrawals & Payouts</a></li>
+                <li><a href="#request-payout">Request Payout</a></li>
+                <li><a href="#complaints">Complaints</a></li>
+                <li><a href="#history">Withdrawal History</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section id="about" class="section">
+            <h2 class="section-title">About National Pension Scheme</h2>
+            <div class="info-cards">
+                <div class="card" data-aos="fade-up">
+                    <h3>What is NPS?</h3>
+                    <p>The National Pension System (NPS) is a voluntary, long-term retirement investment plan to create a retirement corpus. It is regulated by PFRDA (Pension Fund Regulatory and Development Authority).</p>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <h3>Tax Benefits</h3>
+                    <p>Get tax benefits under Section 80CCD(1) up to ₹1.5 lakh and additional deduction under Section 80CCD(1B) up to ₹50,000.</p>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Investment Options</h3>
+                    <p>Choose from various investment options including equity (E), corporate bonds (C), government securities (G), and alternative investment funds (A).</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="calculator" class="section">
+            <div class="calculator" data-aos="zoom-in">
+                <h2>NPS Calculator</h2>
+                <div class="input-group">
+                    <label for="age">Current Age</label>
+                    <input type="number" id="age" min="18" max="65" placeholder="Enter your age">
+                </div>
+                <div class="input-group">
+                    <label for="monthly">Monthly Investment (₹)</label>
+                    <input type="number" id="monthly" placeholder="Enter monthly investment amount">
+                </div>
+                <div class="input-group">
+                    <label for="returns">Expected Returns (%)</label>
+                    <input type="number" id="returns" value="8" min="1" max="15" placeholder="Expected annual returns">
+                </div>
+                <button class="btn" onclick="calculatePension()">Calculate Pension</button>
+                <div class="result" id="result"></div>
+            </div>
+        </section>
+
+        <section id="tiers" class="section">
+            <h2 class="section-title">Account Types</h2>
+            <div class="tiers">
+                <div class="tier-card" data-aos="flip-left">
+                    <h3>Tier I Account</h3>
+                    <p>Primary retirement account with tax benefits</p>
+                    <ul class="features-list">
+                        <li>Tax benefits under 80CCD</li>
+                        <li>Mandatory retirement account</li>
+                        <li>Partial withdrawal allowed</li>
+                        <li>Professional fund management</li>
+                    </ul>
+                </div>
+                <div class="tier-card" data-aos="flip-right">
+                    <h3>Tier II Account</h3>
+                    <p>Voluntary savings facility with more flexibility</p>
+                    <ul class="features-list">
+                        <li>No lock-in period</li>
+                        <li>Withdraw anytime</li>
+                        <li>Lower charges</li>
+                        <li>No tax benefits</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="withdrawals" class="section">
+            <h2 class="section-title">Withdrawals & Payouts</h2>
+            <div class="info-cards">
+                <div class="card" data-aos="fade-up">
+                    <h3>Withdrawal Requests</h3>
+                    <p>Subscribers can make partial withdrawals from their Tier I account after 3 years of joining NPS for specific purposes like higher education, marriage of children, treatment of critical illnesses, etc. Up to 25% of the subscriber's own contribution can be withdrawn.</p>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="100">
+                    <h3>Annuity Details</h3>
+                    <p>Upon retirement, subscribers must use at least 40% of their accumulated pension corpus to purchase an annuity from an IRDA-regulated life insurance company. This annuity provides a regular pension during retirement years. Various annuity options are available including lifetime pension, pension with return of corpus, and joint life pension.</p>
+                </div>
+                <div class="card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Payout Frequency</h3>
+                    <p>Subscribers can choose how often they receive their annuity payments based on their financial needs. Options typically include monthly, quarterly, half-yearly, and annual payouts. Monthly payouts are the most popular choice as they align with regular expense patterns during retirement.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="request-payout" class="section">
+            <h2 class="section-title">Request Payout</h2>
+            <div class="form-container" data-aos="fade-up">
+                <form id="payout-form" class="styled-form">
+                    <div class="input-group">
+                        <label for="payout-amount">Payout Amount (₹)</label>
+                        <input type="number" id="payout-amount" min="1000" placeholder="Enter amount" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="payout-type">Payout Type</label>
+                        <select id="payout-type" required>
+                            <option value="">Select payout type</option>
+                            <option value="regular">Regular Pension</option>
+                            <option value="partial">Partial Withdrawal</option>
+                            <option value="lumpsum">Lump Sum (at retirement)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="payout-frequency">Payout Frequency</label>
+                        <select id="payout-frequency" required>
+                            <option value="">Select frequency</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="half-yearly">Half-Yearly</option>
+                            <option value="yearly">Yearly</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="payment-method">Payment Method</label>
+                        <select id="payment-method" required>
+                            <option value="">Select payment method</option>
+                            <option value="bank">Direct Bank Transfer</option>
+                            <option value="check">Check</option>
+                            <option value="upi">UPI</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="payout-reason">Reason (for partial withdrawal)</label>
+                        <textarea id="payout-reason" rows="3" placeholder="Explain reason for withdrawal"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Submit Payout Request</button>
+                    <div id="payout-result" class="result"></div>
+                </form>
+            </div>
+        </section>
+
+        <section id="complaints" class="section">
+            <h2 class="section-title">Submit a Complaint</h2>
+            <div class="form-container" data-aos="fade-up">
+                <form id="complaint-form" class="styled-form">
+                    <div class="input-group">
+                        <label for="complaint-type">Complaint Type</label>
+                        <select id="complaint-type" required>
+                            <option value="">Select complaint type</option>
+                            <option value="account">Account Related</option>
+                            <option value="payout">Payout Related</option>
+                            <option value="service">Customer Service</option>
+                            <option value="technical">Technical Issue</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="complaint-subject">Subject</label>
+                        <input type="text" id="complaint-subject" placeholder="Brief subject of your complaint" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="complaint-details">Complaint Details</label>
+                        <textarea id="complaint-details" rows="5" placeholder="Please provide details of your complaint" required></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="complaint-priority">Priority</label>
+                        <select id="complaint-priority" required>
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Submit Complaint</button>
+                    <div id="complaint-result" class="result"></div>
+                </form>
+            </div>
+        </section>
+
+        <section id="history" class="section">
+            <h2 class="section-title">Withdrawal History</h2>
+            <div class="withdrawal-history" data-aos="fade-up">
+                <div class="table-container">
+                    <table id="withdrawal-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Amount (₹)</th>
+                                <th>Status</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="withdrawal-history-body">
+                            <!-- Withdrawal history will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <h3>Total Withdrawals</h3>
+                        <p class="amount">₹<span id="total-withdrawn">0</span></p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Pending Requests</h3>
+                        <p class="amount"><span id="pending-count">0</span></p>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Available Balance</h3>
+                        <p class="amount">₹<span id="available-balance">250,000</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 National Pension Scheme. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="nps.css"></script>
+</body>
+</html>
+
