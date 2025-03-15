@@ -8,12 +8,17 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "tailwindcss": "^3.4.17"
   },
   "dependencies": {
     "autoprefixer": "^10.4.20",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mysql2": "^3.13.0",
     "postcss": "^8.5.3"
-  }
+  },
+  "description": ""
 }
