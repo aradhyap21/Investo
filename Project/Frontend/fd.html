@@ -4,415 +4,305 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FD & RD Calculator | Smart Investment Planning</title>
-    <link href="./output.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #0f766e;
-            --secondary-color: #0d9488;
-            --background-light: #f0fdfa;
-            --text-color: #1f2937;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        body {
-            line-height: 1.6;
-            color: var(--text-color);
-        }
-
-        .navbar {
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 1rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-        }
-
-        .navbar nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar a {
-            color: var(--text-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            transition: color 0.3s;
-        }
-
-        .navbar a:hover {
-            color: var(--primary-color);
-        }
-
-        .hero {
-            background: linear-gradient(rgba(15, 118, 110, 0.9), rgba(13, 148, 136, 0.9)), url('/api/placeholder/1200/600');
-            height: 80vh;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            margin-top: 4rem;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 2rem;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .tab-container {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .tab-button {
-            padding: 1rem 2rem;
-            background: none;
-            border: none;
-            border-bottom: 2px solid #ddd;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-
-        .tab-button.active {
-            border-bottom-color: var(--primary-color);
-            color: var(--primary-color);
-        }
-
-        .calculator {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-color);
-        }
-
-        .input-group input, .input-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .calculate-btn {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-            width: 100%;
-        }
-
-        .calculate-btn:hover {
-            background-color: var(--secondary-color);
-        }
-
-        .result {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background-color: var(--background-light);
-            border-radius: 5px;
-            display: none;
-        }
-
-        .comparison {
-            padding: 4rem 2rem;
-            background-color: var(--background-light);
-        }
-
-        .comparison-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .comparison-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .features {
-            padding: 4rem 2rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 2rem auto;
-        }
-
-        .feature-card {
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--text-color);
-        }
-
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            margin-top: 4rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .tabs {
-                flex-direction: column;
-            }
-            
-            .comparison-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="fd.css">
+    <!-- Use a lightweight icon library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.min.css">
 </head>
 <body>
-    <div class="navbar">
-        <nav>
-            <a href="#" class="logo">FD & RD Calculator</a>
-            <div>
-                <a href="#calculator">Calculator</a>
-                <a href="#comparison">Compare</a>
-                <a href="#features">Features</a>
-            </div>
-        </nav>
-    </div>
+    <!-- Header with Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="ri-calculator-line"></i>
+                    <span>FD & RD Calculator</span>
+                </a>
+                <div class="nav-toggle" id="navToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#calculator" class="nav-link">Calculator</a></li>
+                    <li><a href="#comparison" class="nav-link">Compare</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
+    <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Calculate Your Investment Returns</h1>
-            <p>Plan your savings with our FD and RD calculators. Compare rates, estimate returns, and make informed decisions.</p>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Calculate Your Investment Returns</h1>
+                <p>Plan your savings with our FD and RD calculators. Compare rates and make informed decisions.</p>
+                <a href="#calculator" class="cta-button">
+                    Get Started
+                    <i class="ri-arrow-right-line"></i>
+                </a>
+            </div>
         </div>
     </section>
 
-    <section class="tab-container" id="calculator">
-        <div class="tabs">
-            <button class="tab-button active" onclick="switchTab('fd')">Fixed Deposit</button>
-            <button class="tab-button" onclick="switchTab('rd')">Recurring Deposit</button>
-        </div>
+    <!-- Calculator Section -->
+    <section class="calculator-section" id="calculator">
+        <div class="container">
+            <div class="section-header">
+                <h2>Investment Calculator</h2>
+                <p>Estimate returns on your Fixed and Recurring Deposits</p>
+            </div>
 
-        <div class="calculator" id="fd-calculator">
-            <h2>Fixed Deposit Calculator</h2>
-            <div class="input-group">
-                <label for="fd-amount">Principal Amount (₹)</label>
-                <input type="number" id="fd-amount" min="0" step="1000" value="100000">
-            </div>
-            <div class="input-group">
-                <label for="fd-period">Time Period (Years)</label>
-                <input type="number" id="fd-period" min="0" max="10" step="0.25" value="1">
-            </div>
-            <div class="input-group">
-                <label for="fd-rate">Interest Rate (%)</label>
-                <input type="number" id="fd-rate" min="0" max="15" step="0.1" value="6.5">
-            </div>
-            <button class="calculate-btn" onclick="calculateFD()">Calculate Returns</button>
-            <div class="result" id="fd-result"></div>
-        </div>
-
-        <div class="calculator" id="rd-calculator" style="display: none;">
-            <h2>Recurring Deposit Calculator</h2>
-            <div class="input-group">
-                <label for="rd-amount">Monthly Investment (₹)</label>
-                <input type="number" id="rd-amount" min="0" step="500" value="5000">
-            </div>
-            <div class="input-group">
-                <label for="rd-period">Time Period (Years)</label>
-                <input type="number" id="rd-period" min="0" max="10" step="0.25" value="1">
-            </div>
-            <div class="input-group">
-                <label for="rd-rate">Interest Rate (%)</label>
-                <input type="number" id="rd-rate" min="0" max="15" step="0.1" value="5.5">
-            </div>
-            <button class="calculate-btn" onclick="calculateRD()">Calculate Returns</button>
-            <div class="result" id="rd-result"></div>
-        </div>
-    </section>
-
-    <section class="comparison" id="comparison">
-        <div class="comparison-container">
-            <h2 class="section-title">FD vs RD Comparison</h2>
-            <div class="comparison-grid">
-                <div class="comparison-card">
-                    <h3>Fixed Deposit (FD)</h3>
-                    <ul>
-                        <li>One-time lump sum investment</li>
-                        <li>Generally higher interest rates</li>
-                        <li>Flexible tenure options</li>
-                        <li>Premature withdrawal possible</li>
-                        <li>Ideal for large sum investments</li>
-                    </ul>
+            <div class="tab-container">
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="fd">
+                        <i class="ri-bank-line"></i>
+                        Fixed Deposit
+                    </button>
+                    <button class="tab-button" data-tab="rd">
+                        <i class="ri-repeat-line"></i>
+                        Recurring Deposit
+                    </button>
                 </div>
-                <div class="comparison-card">
-                    <h3>Recurring Deposit (RD)</h3>
-                    <ul>
-                        <li>Regular monthly investments</li>
-                        <li>Builds saving discipline</li>
-                        <li>Fixed monthly commitment</li>
-                        <li>Suitable for regular income earners</li>
-                        <li>Ideal for long-term goals</li>
-                    </ul>
+
+                <div class="calculator-container">
+                    <div class="calculator active" id="fd-calculator">
+                        <div class="calculator-form">
+                            <h3>Fixed Deposit Calculator</h3>
+                            <div class="input-group">
+                                <label for="fd-amount">Principal Amount (₹)</label>
+                                <div class="input-with-icon">
+                                    <i class="ri-currency-line"></i>
+                                    <input type="number" id="fd-amount" min="1000" step="1000" value="100000">
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" min="1000" max="5000000" step="1000" value="100000" id="fd-amount-slider">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="fd-period">Time Period</label>
+                                <div class="input-with-icon">
+                                    <i class="ri-calendar-line"></i>
+                                    <input type="number" id="fd-period" min="0.25" max="10" step="0.25" value="1">
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" min="0.25" max="10" step="0.25" value="1" id="fd-period-slider">
+                                </div>
+                                <div class="toggle-buttons">
+                                    <button class="toggle-button active" data-value="years" id="fd-years">Years</button>
+                                    <button class="toggle-button" data-value="months" id="fd-months">Months</button>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="fd-rate">Interest Rate (%)</label>
+                                <div class="input-with-icon">
+                                    <i class="ri-percent-line"></i>
+                                    <input type="number" id="fd-rate" min="1" max="15" step="0.1" value="6.5">
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" min="1" max="15" step="0.1" value="6.5" id="fd-rate-slider">
+                                </div>
+                            </div>
+                            <button class="calculate-btn" id="fd-calculate-btn">
+                                <i class="ri-calculator-line"></i>
+                                Calculate Returns
+                            </button>
+                        </div>
+                        <div class="calculator-result" id="fd-result">
+                            <div class="result-card">
+                                <h4>Investment Summary</h4>
+                                <div class="result-grid">
+                                    <div class="result-item">
+                                        <span class="result-label">Invested Amount</span>
+                                        <span class="result-value" id="fd-invested">₹100,000</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="result-label">Interest Earned</span>
+                                        <span class="result-value" id="fd-interest">₹6,500</span>
+                                    </div>
+                                    <div class="result-item highlight">
+                                        <span class="result-label">Maturity Value</span>
+                                        <span class="result-value" id="fd-maturity">₹106,500</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calculator" id="rd-calculator">
+                        <div class="calculator-form">
+                            <h3>Recurring Deposit Calculator</h3>
+                            <div class="input-group">
+                                <label for="rd-amount">Monthly Investment (₹)</label>
+                                <div class="input-with-icon">
+                                    <i class="ri-currency-line"></i>
+                                    <input type="number" id="rd-amount" min="500" max="100000" step="500" value="5000">
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" min="500" max="100000" step="500" value="5000" id="rd-amount-slider">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="rd-period">Time Period</label>
+                                <div class="input-with-icon">
+                                    <i class="ri-calendar-line"></i>
+                                    <input type="number" id="rd-period" min="0.5" max="10" step="0.5" value="1">
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" min="0.5" max="10" step="0.5" value="1" id="rd-period-slider">
+                                </div>
+                                <div class="toggle-buttons">
+                                    <button class="toggle-button active" data-value="years" id="rd-years">Years</button>
+                                    <button class="toggle-button" data-value="months" id="rd-months">Months</button>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="rd-rate">Interest Rate (%)</label>
+                                <div class="input-with-icon">
+                                    <i class="ri-percent-line"></i>
+                                    <input type="number" id="rd-rate" min="1" max="15" step="0.1" value="5.5">
+                                </div>
+                                <div class="range-slider">
+                                    <input type="range" min="1" max="15" step="0.1" value="5.5" id="rd-rate-slider">
+                                </div>
+                            </div>
+                            <button class="calculate-btn" id="rd-calculate-btn">
+                                <i class="ri-calculator-line"></i>
+                                Calculate Returns
+                            </button>
+                        </div>
+                        <div class="calculator-result" id="rd-result">
+                            <div class="result-card">
+                                <h4>Investment Summary</h4>
+                                <div class="result-grid">
+                                    <div class="result-item">
+                                        <span class="result-label">Total Investment</span>
+                                        <span class="result-value" id="rd-invested">₹60,000</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="result-label">Interest Earned</span>
+                                        <span class="result-value" id="rd-interest">₹1,732</span>
+                                    </div>
+                                    <div class="result-item highlight">
+                                        <span class="result-label">Maturity Value</span>
+                                        <span class="result-value" id="rd-maturity">₹61,732</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="features" id="features">
-        <h2 class="section-title">Key Features</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <h3>Guaranteed Returns</h3>
-                <p>Fixed interest rates ensure predictable returns on your investment.</p>
+    <!-- Comparison Section -->
+    <section class="comparison-section" id="comparison">
+        <div class="container">
+            <div class="section-header">
+                <h2>Compare Investment Options</h2>
+                <p>See how Fixed Deposits and Recurring Deposits stack up against each other</p>
             </div>
-            <div class="feature-card">
-                <h3>Flexible Tenure</h3>
-                <p>Choose investment duration from 7 days to 10 years based on your goals.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Safe Investment</h3>
-                <p>Bank deposits are secured and guaranteed by the government.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Tax Benefits</h3>
-                <p>Interest earned is taxable, but TDS is deductible under certain conditions.</p>
+
+            <div class="comparison-table-container">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Fixed Deposit (FD)</th>
+                            <th>Recurring Deposit (RD)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Investment Pattern</td>
+                            <td>One-time lump sum</td>
+                            <td>Regular monthly installments</td>
+                        </tr>
+                        <tr>
+                            <td>Ideal For</td>
+                            <td>Those with lump sum amount to invest</td>
+                            <td>Those who prefer saving regularly</td>
+                        </tr>
+                        <tr>
+                            <td>Interest Calculation</td>
+                            <td>On the principal amount</td>
+                            <td>On monthly contributions</td>
+                        </tr>
+                        <tr>
+                            <td>Minimum Investment</td>
+                            <td>Usually ₹1,000 and above</td>
+                            <td>Usually ₹500 and above</td>
+                        </tr>
+                        <tr>
+                            <td>Interest Rates</td>
+                            <td>Generally higher</td>
+                            <td>Slightly lower than FD</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
 
-    <footer>
-        <p>Contact us: support@fdrdcalculator.com</p>
-        <p>© 2025 FD & RD Calculator. All rights reserved.</p>
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Key Features</h2>
+                <p>Why use our calculator for your investment planning</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ri-flashlight-line"></i>
+                    </div>
+                    <h3>Instant Calculations</h3>
+                    <p>Get immediate results with our real-time calculator. No waiting, no refreshing.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ri-pie-chart-line"></i>
+                    </div>
+                    <h3>Visual Breakdowns</h3>
+                    <p>See your investment growth with clear visual representations.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ri-smartphone-line"></i>
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Calculate on the go with our fully responsive design that works on all devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="ri-calculator-line"></i>
+                    <span>FD & RD Calculator</span>
+                </div>
+                <p class="footer-disclaimer">
+                    This calculator is for informational purposes only. The actual returns may vary based on the specific terms and conditions of the bank.
+                </p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FD & RD Calculator. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
-    <script>
-        function switchTab(tab) {
-            const fdCalculator = document.getElementById('fd-calculator');
-            const rdCalculator = document.getElementById('rd-calculator');
-            const buttons = document.querySelectorAll('.tab-button');
-            
-            buttons.forEach(button => button.classList.remove('active'));
-            
-            if (tab === 'fd') {
-                fdCalculator.style.display = 'block';
-                rdCalculator.style.display = 'none';
-                buttons[0].classList.add('active');
-            } else {
-                fdCalculator.style.display = 'none';
-                rdCalculator.style.display = 'block';
-                buttons[1].classList.add('active');
-            }
-        }
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top">
+        <i class="ri-arrow-up-line"></i>
+    </button>
 
-        function calculateFD() {
-            const principal = parseFloat(document.getElementById('fd-amount').value);
-            const period = parseFloat(document.getElementById('fd-period').value);
-            const rate = parseFloat(document.getElementById('fd-rate').value);
-
-            if (isNaN(principal) || isNaN(period) || isNaN(rate)) {
-                alert('Please enter valid numbers');
-                return;
-            }
-
-            const interest = (principal * rate * period) / 100;
-            const maturityAmount = principal + interest;
-
-            const result = document.getElementById('fd-result');
-            result.style.display = 'block';
-            result.innerHTML = `
-                <h3>Maturity Details</h3>
-                <p>Principal Amount: ₹${principal.toLocaleString()}</p>
-                <p>Interest Earned: ₹${interest.toLocaleString()}</p>
-                <p>Maturity Amount: ₹${maturityAmount.toLocaleString()}</p>
-                <p>Annual Return: ${rate}%</p>
-            `;
-        }
-
-        function calculateRD() {
-            const monthlyInvestment = parseFloat(document.getElementById('rd-amount').value);
-            const period = parseFloat(document.getElementById('rd-period').value);
-            const rate = parseFloat(document.getElementById('rd-rate').value);
-
-            if (isNaN(monthlyInvestment) || isNaN(period) || isNaN(rate)) {
-                alert('Please enter valid numbers');
-                return;
-            }
-
-            const months = period * 12;
-            const monthlyRate = rate / 12 / 100;
-            
-            // RD Maturity Amount Formula
-            const maturityAmount = monthlyInvestment * (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate));
-            const totalInvestment = monthlyInvestment * months;
-            const interestEarned = maturityAmount - totalInvestment;
-
-            const result = document.getElementById('rd-result');
-            result.style.display = 'block';
-            result.innerHTML = `
-                <h3>Maturity Details</h3>
-                <p>Total Investment: ₹${totalInvestment.toLocaleString()}</p>
-                <p>Interest Earned: ₹${interestEarned.toLocaleString()}</p>
-                <p>Maturity Amount: ₹${maturityAmount.toLocaleString()}</p>
-                <p>Annual Return: ${rate}%</p>
-            `;
-        }
-    </script>
+    <!-- Scripts -->
+    <script src="fd.js"></script>
 </body>
 </html>
