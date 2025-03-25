@@ -641,5 +641,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("total-market-value").textContent = `$${totalMarketValue.toFixed(1)}M`
     document.getElementById("avg-dividend").textContent = `${avgDividend.toFixed(1)}%`
   }
+  fetch("http://localhost:5000/api/auth/login", {
+    method: "POST",
+    credentials: "include", // Important for cookies/sessions
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: "user@example.com", password: "password" }),
+  })
+    .then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.error("Error:", error))
   
   

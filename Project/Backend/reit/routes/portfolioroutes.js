@@ -1,10 +1,17 @@
-const express = require("express");
-const { getPortfolio, addProperty, deleteProperty, updateProperty } = require("../controllers/portfolioController");
-const router = express.Router();
+const express = require("express")
+const router = express.Router()
+const portfolioController = require("../controllers/portfolioController")
+const { protect } = require("../middleware/auth")
 
-router.get("/", getPortfolio);
-router.post("/add", addProperty);
-router.delete("/:id", deleteProperty);
-router.put("/update/:id", updateProperty);
+// All routes are protected
+router.use(protect)
 
-module.exports = router;
+router.get("/", portfolioController.getUserPortfolio)
+router.get("/summary", portfolioController.getPortfolioSummary)
+router.post("/", portfolioController.addToPortfolio)
+router.put("/:id", portfolioController.updatePortfolioItem)
+router.delete("/:id", portfolioController.removeFromPortfolio)
+router.get("/transactions", portfolioController.getTransactionHistory)
+
+module.exports = router
+
